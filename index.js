@@ -1,13 +1,19 @@
 const express = require('express')
 const dotenv = require('dotenv');
-dotenv.config();
 const app = express();
 const { dbConnection } = require('./src/config/db');
 const PORT = process.env.PORT;
+const methodOverride = require('method-override');
+const productRoutes = require('./src/routes/productRoutes');
 
+dotenv.config();
+app.use(methodOverride('_method'));
+ //necesario cuando se utiliza formularios HTML para enviar solicitudes PUT y DELETE. 
+//Este middleware permite usar métodos HTTP PUT y DELETE en lugares donde normalmente solo se permiten GET y POST
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use('/', productRoutes);
 
 dbConnection();
 
