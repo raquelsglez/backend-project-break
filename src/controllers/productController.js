@@ -1,4 +1,3 @@
-const { boolean } = require('webidl-conversions');
 const Product = require('../models/Product');
 
 const showProducts = async (req, res) => {
@@ -25,7 +24,6 @@ const showProductById = async (req, res) => {
     try {
         const dashboard = req.url.includes('/dashboard');
         const product = await Product.findById(req.params.productId);
-        console.log(req.params.productId)
         const productInfo = getProductInfo(product, dashboard);
         const html = baseHtml(productInfo, dashboard);
         res.send(html);
@@ -98,8 +96,9 @@ const deleteProduct = async (req, res) => {
 const getProductInfo = (product, dashboard) => {
     if (dashboard) {
         return `
-            <div>
+            <div class="product-info product-info-dashboard">
                 <h2>${product.name}</h2>
+                <img src="${product.image}" alt="${product.name}">
                 <p>${product.description}</p>
                 <p>${product.price}€</p>
                 <p>Categoría: ${product.category}</p>
@@ -113,15 +112,9 @@ const getProductInfo = (product, dashboard) => {
             </div>
         `;
 
-        // <img src="${product.image}" alt="${product.name}">
-        
-        //El input oculto se utiliza para especificar el método HTTP DELETE. Algunos navegadores no admiten directamente el 
-        //método DELETE en formularios HTML, por lo que se simula el método utilizando un campo oculto llamado _method 
-        //con el valor DELETE, que le indica al servidor que es una solicitud DELETE 
-
     } else {
         return `
-            <div>
+            <div class="product-info">
                 <h2>${product.name}</h2>
                 <img src="${product.image}" alt="${product.name}">
                 <p>${product.description}</p>
@@ -140,6 +133,7 @@ const baseHtml = (info, dashboard) => `
     <head>
         <title>ClothesShop</title>
         <link rel="stylesheet" href="/styles.css">
+        <link href="https://fonts.cdnfonts.com/css/melton-bronze-timeless" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -184,21 +178,17 @@ function getProductCards(products, dashboard) {
     for (let product of products) {
         if (dashboard) {
             html += `
-                <div>
+                <div class="product-card">
                     <h2>${product.name}</h2>
                     <img src="${product.image}" alt="${product.name}">
-                    <p>${product.description}</p>
-                    <p>${product.price}€</p>
                     <a href="/dashboard/${product._id}">Ver</a>
                 </div>
             `;
         } else {
             html += `
-                <div>
+                <div class="product-card">
                     <h2>${product.name}</h2>
                     <img src="${product.image}" alt="${product.name}">
-                    <p>${product.description}</p>
-                    <p>${product.price}€</p>
                     <a href="/products/${product._id}">Ver</a>
                 </div>
             `;
@@ -209,38 +199,40 @@ function getProductCards(products, dashboard) {
 
 
 const getNewProductForm = () => `
-    <div>
-        <form action="/dashboard" method="POST">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="description">Descripción:</label>
-            <textarea id="description" name="description" required></textarea>
-            <label for="price">Precio:</label>
-            <input type="number" id="price" name="price" min="5" max="100" required>
-            <label for="image">URL de la imagen:</label>
-            <input type="text" id="image" name="image" required>
-            <label for="category">Categoría:</label>
-            <select id="category" name="category" required>
-                <option value="Camisetas">Camisetas</option>
-                <option value="Pantalones">Pantalones</option>
-                <option value="Zapatos">Zapatos</option>
-                <option value="Accesorios">Accesorios</option>
-            </select>
-            <label for="size">Talla:</label>
-            <select id="size" name="size" required>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
-            <button type="submit">Crear</button>
-        </form>
-    </div>
+        <div class="form-create">
+            <h1>Crear producto</h1>
+            <form action="/dashboard" method="POST">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="description">Descripción:</label>
+                <textarea id="description" name="description" required></textarea>
+                <label for="price">Precio:</label>
+                <input type="number" id="price" name="price" min="5" max="100" required>
+                <label for="image">URL de la imagen:</label>
+                <input type="text" id="image" name="image" required>
+                <label for="category">Categoría:</label>
+                <select id="category" name="category" required>
+                    <option value="Camisetas">Camisetas</option>
+                    <option value="Pantalones">Pantalones</option>
+                    <option value="Zapatos">Zapatos</option>
+                    <option value="Accesorios">Accesorios</option>
+                </select>
+                <label for="size">Talla:</label>
+                <select id="size" name="size" required>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button class="proof" type="submit">Crear</button>
+            </form>
+        </div>
 `;
 
 const getEditedProductFrom = (product, res) => `
-    <div>
+    <div class="form-edit">
+        <h1>Editar producto</h1>
         <form method="POST" action="/dashboard/${product._id}?_method=PUT">
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" value="${product.name}" required>
@@ -265,7 +257,7 @@ const getEditedProductFrom = (product, res) => `
                 <option value="L">L</option>
                 <option value="XL">XL</option>
             </select>
-            <button type="submit">Editar</button>
+            <button class="edit-button" type="submit">Editar</button>
         </form>
         <form method="GET" action="/dashboard/${product._id}">
             <button type="submit">Cancelar</button>

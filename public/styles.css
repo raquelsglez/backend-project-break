@@ -1,0 +1,217 @@
+html, body{
+    background-color: rgb(245, 245, 245);
+    font-family: 'Melton Bronze Timeless', sans-serif;
+}
+
+header{
+    background-color: black;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s linear;
+}
+
+nav a:hover{
+    transform: scale(1.05);
+    transition: all 0.2s linear;
+}
+
+main{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.product-info{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5em;
+}
+
+.product-info p{
+    margin: 4px;
+}
+
+.product-info img{
+    width: 200px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.product-info-dashboard form button{
+    margin: 5px;
+    font-size: 16px;
+    background-color: rgb(226, 217, 188);
+    border-radius: 0.4em;
+    border: none;
+    width: 70px;
+    height: 35px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    font-family: 'Melton Bronze Timeless', sans-serif;
+}
+
+.product-info-dashboard form button:hover{
+    transform: scale(1.05);
+    background-color: rgb(192, 183, 157);
+    transition: all 0.2s linear;
+}
+
+.product-card{
+    width: 300px;
+    height: 380px;
+    background-color: white;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5em;
+}
+
+.product-card img{
+    width: 200px;
+    object-fit: contain;
+}
+
+.product-card a{
+    margin: 20px;
+    background-color: rgb(226, 217, 188);
+    border-radius: 0.4em;
+    width: 60px;
+    height: 30px;
+    transition: all 0.2s linear;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    transition: all 0.2s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card a:hover{
+    transform: scale(1.05);
+    background-color: rgb(136, 130, 112);
+    transition: all 0.2s linear;
+}
+
+.form-create{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    height: 410px;
+    padding: 20px;
+    margin: 50px;
+    border-radius: 0.5em;
+}
+
+.form-create h1{
+    align-self: center;
+}
+
+.form-create form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-create form label{
+    margin-top:10px;
+}
+
+.form-create form button{
+    align-self: center;
+    margin: 20px;
+    background-color: rgb(226, 217, 188);
+    font-size: 18px;
+    border-radius: 0.4em;
+    border: none;
+    width: 80px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    font-family: 'Melton Bronze Timeless', sans-serif;
+}
+
+.form-create form button:hover{
+    transform: scale(1.05);
+    background-color: rgb(192, 183, 157);
+    transition: all 0.2s linear;
+}
+
+.form-edit{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    height: 500px;
+    padding: 20px;
+    margin: 50px;
+    border-radius: 0.5em;
+}
+
+.form-edit h1{
+    align-self: center;
+}
+
+.form-edit form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-edit form label{
+    margin-top:10px;
+}
+
+.form-edit form button{
+    text-align: center;
+    align-self: center;
+    margin: 5px;
+    background-color: rgb(226, 217, 188);
+    font-size: 18px;
+    border-radius: 0.4em;
+    border: none;
+    width: 90px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    font-family: 'Melton Bronze Timeless', sans-serif;
+}
+
+.form-edit form button:hover{
+    transform: scale(1.05);
+    background-color: rgb(192, 183, 157);
+    transition: all 0.2s linear;
+}
+
+.form-edit form .edit-button{
+    margin-top: 20px;
+}
