@@ -59,7 +59,7 @@ const showEditProduct = async (req, res) => {
     const dashboard = req.url.includes('/dashboard');
 
     const product = await Product.findById(req.params.productId);
-    const form = getEditedProductFrom(product, res);//html del formulario de editar
+    const form = getEditedProductFrom(product);//html del formulario de editar
     const html = baseHtml(form, dashboard); 
     res.send(html);
 };
@@ -158,7 +158,7 @@ const getNavBar = (dashboard) =>{
             <a href="/dashboard?category=Accesorios">Accesorios</a>
             <a href="/dashboard/new">Crear producto</a>
         </nav>
-      `
+        `
     }else {
         return `
         <nav>
@@ -168,7 +168,7 @@ const getNavBar = (dashboard) =>{
             <a href="/products?category=Zapatos">Zapatos</a>
             <a href="/products?category=Accesorios">Accesorios</a>
         </nav>
-      `
+        `
     }
 };
 
@@ -231,7 +231,7 @@ const getNewProductForm = () => `
 `;
 
 //funcion auxiliar. Generar el form para editar un product
-const getEditedProductFrom = (product, res) => `
+const getEditedProductFrom = (product) => `
     <div class="form-edit">
         <h1>Editar producto</h1>
         <form method="POST" action="/dashboard/${product._id}?_method=PUT">
@@ -275,4 +275,9 @@ module.exports = {
   showEditProduct,
   updateProduct,
   deleteProduct,
+  getProductInfo,
+  getNavBar,
+  getProductCards,
+  getNewProductForm,
+  getEditedProductFrom,
 };
