@@ -55,6 +55,16 @@ El archivo .env es un archivo de configuración utilizado en aplicaciones para a
 Para poder obtener las varibles de entorno desde el .env hemos usado la libreria ``dotenv``.
 
 
+### Session: express-session
+Es un middleware, que se utiliza para gestionar sesiones de usuario en aplicaciones web
+
+Para poder implementarlo hemos usado la libreria ``express-session``.
+
+### Authentication: firebase
+Firebase es una plataforma de desarrollo de aplicaciones móviles y web. Proporciona servicios para autenticar usuarios de forma sencilla utilizando correo electrónico y contraseña, números de teléfono, y proveedores de identidad federada como Google, Facebook, y Twitter.
+
+Para poder implementarlo hemos usado la libreria ``firebase``.
+
 
 ## Funcionamiento
 
@@ -86,12 +96,12 @@ new mongoose.Schema({
 ```
 
 ### Rutas
-- Usuario no autenticado.
+- Usuario no autenticado:
     - GET / - Pagina de inicio para cuando arranque el servidor (Listado de productos).
     - GET /products - Listado de productos.
     - GET /products/{id} - Detalle del producto.
 
-- Usuario autenticado admin.
+- Usuario autenticado admin:
     - GET /dashboard - Listado de productos.
     - GET /dashboard/{id} - Detalle del producto, donde puede acceder a borrarlo o editarlo.
     - GET /dashboard/new - Formulario para crear un producto.
@@ -99,6 +109,16 @@ new mongoose.Schema({
     - GET /dashboard/{id}/edit - Formulario para editar un producto.
     - PUT /dashboard/{id} - Ruta para editar un producto.
     - DELETE /dashboard/{id}/delete - Ruta para borrar un producto.
+
+- Autenticación:
+    - GET /login - Formulario para iniciar sesión.
+    - GET /register - Formulario para registrarse.
+    - POST /auth/login - Ruta que ejecuta el login.
+    - POST /auth/register - Ruta que ejecuta el  registro.
+    - GET /auth/logout - Ruta que ejecuta el logout.
+
+- Generales:
+    - GET /errors - Pagina que muestra distintos errores.
 
 ### Controladores
 #### Principales
@@ -109,6 +129,7 @@ new mongoose.Schema({
 - showEditProduct: Devuelve la página con un formulario para editar un producto.
 - updateProduct: Edita un producto, posteriormente, redirige a la página del detalle del producto.
 - deleteProduct: Elimina un producto, posteriormente, redirige a la página del dashboard.
+- getErrors: Devuelve html de errores.
 
 #### Auxiliares
 - getProductInfo: Devuelve el html del detalle del produto diferenciando entre la vista del dashboard y la normal.
@@ -117,6 +138,11 @@ new mongoose.Schema({
 - getProductCards: Devuelve el html del listado de produtos diferenciando entre la vista del dashboard y la normal.
 - getNewProductForm: Devuelve el formulario para crear un producto.
 - getEditedProductFrom: Devuelve el formulario para editar un producto.
+
+
+### Autenticación
+- getLoginForm: Devuelve el formulario para hacer login.
+- getRegisterForm: Devuelve el formulario para registrarse.
 
 ### Visualización
 
