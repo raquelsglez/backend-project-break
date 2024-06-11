@@ -137,7 +137,7 @@ describe('Get new product form', () => {
                     <option value="L">L</option>
                     <option value="XL">XL</option>
                 </select>
-                <button class="proof" type="submit">Crear</button>
+                <button type="submit">Crear</button>
             </form>
         </div>
 `)

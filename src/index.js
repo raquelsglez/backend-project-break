@@ -5,6 +5,8 @@ const { dbConnection } = require('./config/db');
 const PORT = process.env.PORT;
 const methodOverride = require('method-override');
 const productRoutes = require('./routes/productRoutes');
+const authRoutes = require('./routes/authRoutes');
+const session = require('express-session');
 
 dotenv.config();
 //cargar variables de entorno del archivo .env
@@ -14,8 +16,14 @@ app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public')); //// Servir archivos estáticos desde la carpeta 'public'
+app.use(session({
+    secret: 'secretoSuperSecreto',
+    resave: false,
+    saveUninitialized: true,
+}));
 
 app.use('/', productRoutes);
+app.use('/', authRoutes);
 
 dbConnection();
 

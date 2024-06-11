@@ -1,17 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const productController = require('../controllers/productController');
+const middleware = require('../middlewares/authMiddleware');
 
 router.get('/', productController.showProducts);
 router.get('/products', productController.showProducts);
 router.get('/products/:productId', productController.showProductById);
-router.get('/dashboard', productController.showProducts);
-router.get('/dashboard/new', productController.showNewProduct);
-router.post('/dashboard', productController.createProduct);
-router.get('/dashboard/:productId', productController.showProductById);
-router.get('/dashboard/:productId/edit', productController.showEditProduct);
-router.put('/dashboard/:productId', productController.updateProduct);
-router.delete('/dashboard/:productId/delete', productController.deleteProduct);
+router.get('/dashboard', middleware.verificarSesionMiddleware, productController.showProducts);
+router.get('/dashboard/new', middleware.verificarSesionMiddleware, productController.showNewProduct);
+router.post('/dashboard', middleware.verificarSesionMiddleware,productController.createProduct);
+router.get('/dashboard/:productId', middleware.verificarSesionMiddleware, productController.showProductById);
+router.get('/dashboard/:productId/edit', middleware.verificarSesionMiddleware, productController.showEditProduct);
+router.put('/dashboard/:productId', middleware.verificarSesionMiddleware, productController.updateProduct);
+router.delete('/dashboard/:productId/delete', middleware.verificarSesionMiddleware, productController.deleteProduct);
+router.get('/errors', productController.getErrors);
 
 module.exports = router;
 

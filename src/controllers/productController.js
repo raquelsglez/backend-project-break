@@ -14,7 +14,6 @@ const showProducts = async (req, res) => {
         const html = baseHtml(productCards, dashboard);//html base juntos al html de los productos
         res.send(html);
     } catch {
-        console.error(error);
         res.status(500).send({message: "There was a problem trying to get the products"});
     };
 };
@@ -157,6 +156,7 @@ const getNavBar = (dashboard) =>{
             <a href="/dashboard?category=Zapatos">Zapatos</a>
             <a href="/dashboard?category=Accesorios">Accesorios</a>
             <a href="/dashboard/new">Crear producto</a>
+            <a href="/auth/logout">Log out</a>
         </nav>
         `
     }else {
@@ -167,6 +167,7 @@ const getNavBar = (dashboard) =>{
             <a href="/products?category=Pantalones">Pantalones</a>
             <a href="/products?category=Zapatos">Zapatos</a>
             <a href="/products?category=Accesorios">Accesorios</a>
+            <a href="/login">Login</a>
         </nav>
         `
     }
@@ -225,7 +226,7 @@ const getNewProductForm = () => `
                     <option value="L">L</option>
                     <option value="XL">XL</option>
                 </select>
-                <button class="proof" type="submit">Crear</button>
+                <button type="submit">Crear</button>
             </form>
         </div>
 `;
@@ -266,6 +267,22 @@ const getEditedProductFrom = (product) => `
     </div>
 `;
 
+const getErrors = async (req, res) => {
+    const dashboard = req.url.includes('/dashboard');
+
+    let error = "";
+
+    if (req.query.error == '1'){
+        error = `
+        <div class="div-error">
+            <p class="error">Debes estar logueado</p>
+        </div>`
+    }
+
+    const html = baseHtml(error, dashboard);
+    res.send(html)
+}
+
 
 module.exports = {
   showProducts,
@@ -280,4 +297,5 @@ module.exports = {
   getProductCards,
   getNewProductForm,
   getEditedProductFrom,
+  getErrors,
 };
