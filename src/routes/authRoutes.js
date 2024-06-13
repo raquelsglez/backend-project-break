@@ -7,8 +7,8 @@ const errorMiddleware = require('../middlewares/errorsMiddleware');
 router.get('/login', authtController.getLoginForm);
 router.get('/register', authtController.getRegisterForm);
 
-router.post('/auth/login', firebaseConfig.loginEmailPassword, errorMiddleware.errorControl);
-router.post('/auth/register', firebaseConfig.registerEmailPassword, errorMiddleware.errorControl);
+router.post('/auth/login', firebaseConfig.loginEmailPassword, errorMiddleware.errorMiddleware);
+router.post('/auth/register', firebaseConfig.registerEmailPassword, errorMiddleware.errorMiddleware);
 router.get('/auth/logout', firebaseConfig.logout);
 
 module.exports = router;
