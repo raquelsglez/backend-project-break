@@ -139,10 +139,16 @@ new mongoose.Schema({
 - getNewProductForm: Devuelve el formulario para crear un producto.
 - getEditedProductFrom: Devuelve el formulario para editar un producto.
 
-
-### Autenticación
+#### Autenticación
 - getLoginForm: Devuelve el formulario para hacer login.
 - getRegisterForm: Devuelve el formulario para registrarse.
+
+### Middlewares
+#### Autenticación
+- verificarSesionMiddleware: Comprueba si el usuario esta logueado, si lo está, deja paso al siguiente controlador, si no, devuelve un error.
+
+#### Errores
+- errorMiddleware: Manejador de errores. Loguea el error y además redirige a la página indicada con el código de error indicado.
 
 ### Visualización
 
