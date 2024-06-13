@@ -2,28 +2,28 @@ const Product = require('../models/Product');
 
 const showProducts = async (req, res) => {
     try {
-        const dashboard = req.url.includes('/dashboard'); // Comrprobar si se accede desde el dashboard
-        const { category } = req.query;//obtiene la categoría de la query en la URL
+        const dashboard = req.url.includes('/dashboard');
+        const { category } = req.query;
         let products;
         if(category){
-            products = await Product.find({ category }); //Filtrar productos por categoría si está en la consulta(query)
+            products = await Product.find({ category }); 
         } else { 
             products = await Product.find();
         };
-        const productCards = getProductCards(products, dashboard);//html de los productos
-        const html = baseHtml(productCards, dashboard);//html base juntos al html de los productos
+
+        const productCards = getProductCards(products, dashboard);
+        const html = baseHtml(productCards, dashboard);
         res.send(html);
     } catch {
         res.status(500).send({message: "There was a problem trying to get the products"});
     };
 };
 
-//showProductById: Devuelve la vista con el detalle de un producto
 const showProductById = async (req, res) => {
     try {
         const dashboard = req.url.includes('/dashboard');
         const product = await Product.findById(req.params.productId);
-        const productInfo = getProductInfo(product, dashboard);//html con la info detallada del producto
+        const productInfo = getProductInfo(product, dashboard);
         const html = baseHtml(productInfo, dashboard);
         res.send(html);
     } catch (error) {
@@ -32,16 +32,14 @@ const showProductById = async (req, res) => {
     }
 };
 
-//showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo
 const showNewProduct = (req, res) => {
     const dashboard = req.url.includes('/dashboard');
 
-    const form = getNewProductForm();//html del formulario de crear
+    const form = getNewProductForm();
     const html = baseHtml(form, dashboard);
     res.send(html);
 };
 
-//createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard
 const createProduct = async (req, res) => {
     try {
         await Product.create(req.body);
@@ -52,18 +50,16 @@ const createProduct = async (req, res) => {
     };
 };
 
-//showEditProduct: Devuelve la vista con el formulario para editar un producto
-
 const showEditProduct = async (req, res) => {
     const dashboard = req.url.includes('/dashboard');
 
     const product = await Product.findById(req.params.productId);
-    const form = getEditedProductFrom(product);//html del formulario de editar
+    const form = getEditedProductFrom(product);
     const html = baseHtml(form, dashboard); 
     res.send(html);
 };
 
-//updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard
+
 const updateProduct = async (req, res) => {
     try {
         const product = await Product.findByIdAndUpdate(req.params.productId, req.body, { new: true });
@@ -74,7 +70,6 @@ const updateProduct = async (req, res) => {
     }
 };
 
-//deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard
 const deleteProduct = async (req, res) => {
     try {
         const deletedProduct = await Product.findByIdAndDelete(req.params.productId);
@@ -88,10 +83,6 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-
-//Las funciones showProducts y showProductById pueden devolver respuestas ligeramente distintas si se llega desde el dashboard o desde la vista principal. Por ejemplo, si se llega desde el dashboard, se mostrará un enlace para editar o eliminar el producto. Para ello podemos utilizar la url de la petición o pasar al controlador un parámetro extra que indique si se llega desde el dashboard o no.
-
-//funcion auxiliar.Obtener la info de un product (uso del methodOverride para usar el método delete en el formulario)
 const getProductInfo = (product, dashboard) => {
     if (dashboard) {
         return `
@@ -125,7 +116,7 @@ const getProductInfo = (product, dashboard) => {
     };
 };
 
-//baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
+
 const baseHtml = (info, dashboard) => `
   <!DOCTYPE html>
   <html>
@@ -145,7 +136,7 @@ const baseHtml = (info, dashboard) => `
   </html>
 `;
 
-//getNavBar: Genera la barra de navegación con las categorías. En caso de estar en el dashboard, también generará un enlace para subir un nuevo producto.
+
 const getNavBar = (dashboard) =>{
     if(dashboard){
         return `
@@ -173,7 +164,7 @@ const getNavBar = (dashboard) =>{
     }
 };
 
-//getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
+
 function getProductCards(products, dashboard) {
     let html = '';
     for (let product of products) {
@@ -198,7 +189,7 @@ function getProductCards(products, dashboard) {
     return html;
 };
 
-//funcion auxiliar. Generar el form para crear un product
+
 const getNewProductForm = () => `
         <div class="form-create">
             <h1>Crear producto</h1>
@@ -231,7 +222,7 @@ const getNewProductForm = () => `
         </div>
 `;
 
-//funcion auxiliar. Generar el form para editar un product
+
 const getEditedProductFrom = (product) => `
     <div class="form-edit">
         <h1>Editar producto</h1>
@@ -280,8 +271,8 @@ const getErrors = async (req, res) => {
     }
 
     const html = baseHtml(error, dashboard);
-    res.send(html)
-}
+    res.send(html);
+};
 
 
 module.exports = {

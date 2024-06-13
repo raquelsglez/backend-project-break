@@ -44,9 +44,9 @@ Tenemos que saber que no podemos hacer llamadas **PUT** y **DELETE** directament
         ```
 
 ### Base de datos: Mongo
-MongoDB es una base de datos NoSQL. A diferencia de las bases de datos relacionales tradicionales que utilizan tablas y filas, MongoDB almacena datos en documentos flexibles similares a JSON, que permiten una estructura más dinámica y fácil de modificar.
+MongoDB es una base de datos NoSQL. Almacena datos en documentos flexibles similares a JSON, que permiten una estructura más dinámica y fácil de modificar.
 
-Para poder usar MongoDB en nuestro proyecto hemos usado la libreria ``mongoose``.
+Para poder usar MongoDB en nuestro proyecto hemos utilizado la librería ``mongoose``.
 
 
 ### Variables de entorno: .env

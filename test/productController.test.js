@@ -1,15 +1,6 @@
 const productController = require('../src/controllers/productController');
 const Product = require("../src/models/Product"); 
 
-const req = {
-    url: '',
-    query: {}
-};
-const  res = {
-    send: jest.fn(),
-    status: jest.fn().mockReturnThis()
-};
-
 const product = {
     _id: "1",
     name: "name",
@@ -69,6 +60,7 @@ describe('Get nav bar', () => {
             <a href="/dashboard?category=Zapatos">Zapatos</a>
             <a href="/dashboard?category=Accesorios">Accesorios</a>
             <a href="/dashboard/new">Crear producto</a>
+            <a href="/auth/logout">Log out</a>
         </nav>
         `)
     });
@@ -81,6 +73,7 @@ describe('Get nav bar', () => {
             <a href="/products?category=Pantalones">Pantalones</a>
             <a href="/products?category=Zapatos">Zapatos</a>
             <a href="/products?category=Accesorios">Accesorios</a>
+            <a href="/login">Login</a>
         </nav>
         `)
       });
