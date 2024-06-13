@@ -1,6 +1,6 @@
 const Product = require('../models/Product');
 
-const showProducts = async (req, res) => {
+const showProducts = async (req, res, next) => {
     try {
         const dashboard = req.url.includes('/dashboard');
         const { category } = req.query;
@@ -14,12 +14,14 @@ const showProducts = async (req, res) => {
         const productCards = getProductCards(products, dashboard);
         const html = baseHtml(productCards, dashboard);
         res.send(html);
-    } catch {
-        res.status(500).send({message: "There was a problem trying to get the products"});
+    } catch (error) {
+        const code = 2;
+        const page = 'errors';
+        next({error, code, page});
     };
 };
 
-const showProductById = async (req, res) => {
+const showProductById = async (req, res, next) => {
     try {
         const dashboard = req.url.includes('/dashboard');
         const product = await Product.findById(req.params.productId);
@@ -27,8 +29,9 @@ const showProductById = async (req, res) => {
         const html = baseHtml(productInfo, dashboard);
         res.send(html);
     } catch (error) {
-        console.error(error);
-        res.status(500).send({message: "There was a problem trying to get a product"});
+        const code = 3;
+        const page = 'errors';
+        next({error, code, page});
     }
 };
 
@@ -40,13 +43,14 @@ const showNewProduct = (req, res) => {
     res.send(html);
 };
 
-const createProduct = async (req, res) => {
+const createProduct = async (req, res, next) => {
     try {
         await Product.create(req.body);
         res.redirect('/dashboard');
     } catch(error) {
-        console.error(error);
-        res.status(500).send({message: "There was a problem trying to create a product"});
+        const code = 4;
+        const page = 'errors';
+        next({error, code, page});
     };
 };
 
@@ -60,17 +64,18 @@ const showEditProduct = async (req, res) => {
 };
 
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (req, res, next) => {
     try {
         const product = await Product.findByIdAndUpdate(req.params.productId, req.body, { new: true });
         res.redirect(`/dashboard/${product._id}`);
     } catch(error) {
-        console.error(error);
-        res.status(500).send({message: "There was a problem trying to update a product"});
+        const code = 5;
+        const page = 'errors';
+        next({error, code, page});
     }
 };
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res, next) => {
     try {
         const deletedProduct = await Product.findByIdAndDelete(req.params.productId);
         if (!deletedProduct) {
@@ -78,8 +83,9 @@ const deleteProduct = async (req, res) => {
         };
         res.redirect('/dashboard');
     } catch (error) {
-        console.error(error);
-        res.status(500).send({ message: "There was a problem trying to delete a product" });
+        const code = 6;
+        const page = 'errors';
+        next({error, code, page});
     }
 };
 
@@ -267,6 +273,32 @@ const getErrors = async (req, res) => {
         error = `
         <div class="div-error">
             <p class="error">Debes estar logueado</p>
+        </div>`
+
+    }else if (req.query.error == '2'){
+        error = `
+        <div class="div-error">
+            <p class="error">There was a problem trying to get a products</p>
+        </div>`
+    }else if (req.query.error == '3'){
+        error = `
+        <div class="div-error">
+            <p class="error">There was a problem trying to get a product</p>
+        </div>`
+    } else if (req.query.error == '4'){
+        error = `
+        <div class="div-error">
+            <p class="error">There was a problem trying to create a product</p>
+        </div>`
+    } else if (req.query.error == '5'){
+        error = `
+        <div class="div-error">
+            <p class="error">There was a problem trying to update a product</p>
+        </div>`
+    } else if (req.query.error == '6'){
+        error = `
+        <div class="div-error">
+            <p class="error">There was a problem trying to delete a product</p>
         </div>`
     }
 

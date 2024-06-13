@@ -218,6 +218,7 @@ main{
 
 .error{
     color: red;
+    text-align: center;
 }
 
 .form-login{
@@ -322,6 +323,7 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     background-color: white;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
     width: 300px;
