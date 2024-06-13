@@ -2,8 +2,12 @@
 
 Este es un proyecto de una **aplicación web** de tienda de ropa. Un usuario **normal** puede **acceder** a los productos, mientras que un usuario **admin** puede **gestionar** (Obtener, Crear, Editar y Borrar) dichos productos.
 
-## Tecnologías usadas
+## Prerequisitos
+ - Node.js (v18.16.1)
+ - npm (v9.5.1)
+ - MongoDB (v6.0.7)
 
+## Tecnologías usadas
 ### Backend: Node.js + Express
 **Node.js** es un entorno de ejecución para JavaScript, mientras que **Express** es un framework para Node.js que simplifica el desarrollo de aplicaciones web y APIs.
 
@@ -68,18 +72,23 @@ Para poder implementarlo hemos usado la libreria ``firebase``.
 
 ## Funcionamiento
 
-### Primeros pasos
+### Environment Variables
+Se necesita crear un archivo ``.env`` con las siguientes variables:
+- ``MONGO_URI`` - Conexion URI a la base de datos.
+- ``PORT`` - Puerto en el que se desea arrancar.
+- ``PALABRA_SECRETA`` - Secreto para controlar la sesion del usuario.
+- ``FIREBASE_API_KEY`` - Clave secreta para la conexion con firebase.
+- ``SECRET`` - Secreto para la sesion.
+
+### Iniciar app
 Para arrancar el proyecto necesitaremos ejecutar los siguientes comandos
 
-1. Instalar dependencias:
-    ```
-    npm install
-    ```
-
-2. Encender el servidor:
-    ```
-    npm start
-    ```
+```
+git clone https://github.com/raquelsglez/backend-project-break.git
+cd backend-project-break
+npm install
+npm start
+```
 
 ### Modelo
 Hemos creado la estructura de un modelo de **producto** con los siguientes datos:
