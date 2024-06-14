@@ -152,6 +152,13 @@ new mongoose.Schema({
 - getLoginForm: Devuelve el formulario para hacer login.
 - getRegisterForm: Devuelve el formulario para registrarse.
 
+#### Api
+- showProducts: Devuelve un JSON con todos los productos.
+- showProductById: Devuelve un JSON con la información de un producto. 
+- createProduct: Crea un producto y lo devuelve en formato JSON.
+- updateProduct: Edita un producto y lo devuelve en formato JSON.
+- deleteProduct: Elimina un producto.
+
 ### Middlewares
 #### Autenticación
 - verificarSesionMiddleware: Comprueba si el usuario esta logueado, si lo está, deja paso al siguiente controlador, si no, devuelve un error.
@@ -159,6 +166,49 @@ new mongoose.Schema({
 #### Errores
 - errorMiddleware: Manejador de errores. Loguea el error y además redirige a la página indicada con el código de error indicado.
 
-### Visualización
+### Swagger
+Swagger es una herramienta para diseñar, documentar y probar APIs. 
+Se utiliza para describir cómo funciona una API y genera documentación interactiva para que los desarrolladores puedan entender y usar la API de manera sencilla.
 
- 
+Para poder usar Swagger en nuestro proyecto hemos utilizado la librería ``swagger-ui-express``.
+
+### Visualización
+- Página de inicio
+
+![página de inicio](public/readmeImages/pág-inicio.png)
+
+- Página de producto inidividual
+
+![página de producto individual](public/readmeImages/products-infoProduct.png)
+
+- Productos filtrados por categoría
+
+![Productos filtrados por categoría](public/readmeImages/filtrado-category.png)
+
+- Dashboard
+
+![Página del dashboard](public/readmeImages/dashboard.png)
+
+- Página de producto individual dashboard
+
+![Página de producto individual dashboard](public/readmeImages/dashboard-productInfo.png)
+
+- Página de crear producto
+
+![Página de crear producto](public/readmeImages/dashboardNew.png)
+
+- Página de editar producto
+
+![Página de editar producto](public/readmeImages/editProduct.png)
+
+- Página del login
+
+![Página del login](public/readmeImages/login.png)
+
+- Página del register
+
+![Página del register](public/readmeImages/register.png)
+
+- Página de error (No logueado)
+
+![Página de error](public/readmeImages/error-no-logueado.png)
