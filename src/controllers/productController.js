@@ -99,7 +99,7 @@ const getProductInfo = (product, dashboard) => {
                 <p>${product.price}€</p>
                 <p>Categoría: ${product.category}</p>
                 <p>Talla: ${product.size}</p>
-                <form method="POST" action="/dashboard/${product._id}/delete?_method=DELETE">
+                <form method="POST" action="/dashboard/${product._id}/delete?_method=DELETE" onsubmit="return confirm('¿Estás seguro de que deseas eliminar el producto?');">
                     <button type="submit">Borrar</button>
                 </form>
                 <form method="GET" action="/dashboard/${product._id}/edit">
